@@ -15,6 +15,7 @@ function getById(taskId) {
 function createTask(newTask) {
     newTask.id = tasks.length + 1;
     tasks.push(newTask);
+    return newTask;
 }
 
 function updateTask(taskId, updatedTask) {

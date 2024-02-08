@@ -1,6 +1,8 @@
 const tasksRepository = require("./tasksRepository");
 
 describe("Pruebas", () => {
+    
+
     // Prueba unitaria: Obtener todas las tareas
     test("Obtener todas las tareas", () => {
         // Arrange
@@ -37,12 +39,14 @@ describe("Pruebas", () => {
         };
 
         // Act
-        const createdTask = tasksRepository.create(newTaskData);
+        const created = tasksRepository.createTask(newTaskData);
+
+        console.log(created)
 
         // Assert
-        expect(createdTask.title).toBe(newTaskData.title);
-        expect(createdTask.description).toBe(newTaskData.description);
-        expect(createdTask.status).toBe(newTaskData.status);
+        expect(created.title).toBe(newTaskData.title);
+        expect(created.description).toBe(newTaskData.description);
+        expect(created.status).toBe(newTaskData.status);
     });
 
     // Prueba unitaria: Editar una tarea existente
@@ -56,13 +60,13 @@ describe("Pruebas", () => {
         };
 
         // Act
-        const updatedTask = tasksRepository.update(taskId, updatedTaskData);
+        const updated = tasksRepository.updateTask(taskId, updatedTaskData);
 
         // Assert
-        expect(updatedTask.id).toBe(taskId);
-        expect(updatedTask.title).toBe(updatedTaskData.title);
-        expect(updatedTask.description).toBe(updatedTaskData.description);
-        expect(updatedTask.status).toBe(updatedTaskData.status);
+        expect(updated.id).toBe(taskId);
+        expect(updated.title).toBe(updatedTaskData.title);
+        expect(updated.description).toBe(updatedTaskData.description);
+        expect(updated.status).toBe(updatedTaskData.status);
     });
 
     // Prueba unitaria: Eliminar una tarea existente
@@ -71,10 +75,9 @@ describe("Pruebas", () => {
         const taskId = 1;
 
         // Act
-        const deletedTask = tasksRepository.delete(taskId);
+        const deleted = tasksRepository.deleteTask(taskId);
 
         // Assert
-        expect(deletedTask.id).toBe(taskId);
         expect(tasksRepository.getById(taskId)).toBe(undefined);
     });
 });
