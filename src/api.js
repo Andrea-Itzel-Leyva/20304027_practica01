@@ -1,11 +1,11 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const tasksRepository =  require('./tasksRepository');
+import express from "express";
+import { json } from "body-parser";
+import { getAll, getById, createTask, updateTask, deleteTask } from "./tasksRepository";
 
 const app = express();
 const port = 3000;
 
-app.use(bodyParser.json());
+app.use(json());
 
 let tasks = [
   { id: 1, title: 'Task 1', description: 'Do something' },
@@ -14,14 +14,14 @@ let tasks = [
 
 // Get all tasks
 app.get('/tasks', (req, res) => {
-  const  tasks = tasksRepository.getAll();
+  const  tasks = getAll();
   res.json(tasks);
 });
 
 // Get a specific task
 app.get('/tasks/:id', (req, res) => {
   const taskId = parseInt(req.params.id);
-  const task = tasksRepository.getById(taskId)
+  const task = getById(taskId)
 
   if (task) {
     res.json(task);
@@ -33,7 +33,7 @@ app.get('/tasks/:id', (req, res) => {
 // Create a new task
 app.post('/tasks', (req, res) => {
   const newTask = req.body;
-  tasksRepository.createTask(newTask)
+  createTask(newTask)
   res.status(201).json(newTask);
 });
 
@@ -41,7 +41,7 @@ app.post('/tasks', (req, res) => {
 app.put('/tasks/:id', (req, res) => {
   const taskId = parseInt(req.params.id);
   const updatedTask = req.body;
-  const task =  tasksRepository.updateTask(taskId, updatedTask);
+  const task =  updateTask(taskId, updatedTask);
 
   if (index != null) {
     res.json(task);
@@ -53,9 +53,9 @@ app.put('/tasks/:id', (req, res) => {
 // Delete a task
 app.delete('/tasks/:id', (req, res) => {
   const taskId = parseInt(req.params.id);
-  tasksRepository.deleteTask(taskId)
+  deleteTask(taskId)
   res.sendStatus(204);
 });
 
 
-module.exports = app;
+export default app;
