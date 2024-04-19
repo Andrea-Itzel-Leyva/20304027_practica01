@@ -1,6 +1,6 @@
-import express from "express";
-import { json } from "body-parser";
-import { getAll, getById, createTask, updateTask, deleteTask } from "./tasksRepository";
+const express = require("express");
+const { json } = require("body-parser");
+const { getAll, getById, createTask, updateTask, deleteTask } = require("./tasksRepository");
 
 const app = express();
 const port = 3000;
@@ -57,5 +57,4 @@ app.delete('/tasks/:id', (req, res) => {
   res.sendStatus(204);
 });
 
-
-export default app;
+module.exports = app;
